@@ -1,10 +1,11 @@
 const row = document.querySelector('.row')
-const continent = 'europe'
+// const continent = 'europe'
 const input =document.querySelector('.input')
 const submit = document.querySelector('.submit')
 const title = document.querySelector('.title')
 const subtitle = document.querySelector('.subtitle')
 const title3 = document.querySelector('.title3')
+const select =document.querySelector('select')
 
 
 submit.addEventListener('click',() => {
@@ -13,17 +14,19 @@ submit.addEventListener('click',() => {
         .then(response => response.json())
         .then(data =>{
             console.log(data.rates)
-            title.innerHTML = Object.values(data.rates)[0].toFixed(3)
-            subtitle.innerHTML = Object.values(data.rates)[1].toFixed(3)
-            title3.innerHTML = Object.values(data.rates)[2].toFixed(3)
+            title.innerHTML = Object.values(data.rates)[0].toFixed(2)
+            subtitle.innerHTML = Object.values(data.rates)[1].toFixed(2)
+            title3.innerHTML = Object.values(data.rates)[2].toFixed(2)
         })
 })
-
-fetch(`https://restcountries.com/v3.1/region/${continent}`)
-.then(response => response.json())
-.then ( data => {
-   data.map  (country =>{
-       row.innerHTML += `<div class="col-4">
+select.addEventListener('click',() => {
+    let b = select.value
+    fetch(`https://restcountries.com/v3.1/region/${b}`)
+        .then(response => response.json())
+        .then ( data => {
+            row.innerHTML = ' ';
+            data.map  (country =>{
+                row.innerHTML += `<div class="col-4">
    <div class="box">
     <div class="img-wrapper">
     <img src="${country.flags.png}" alt="flag">
@@ -35,11 +38,12 @@ fetch(`https://restcountries.com/v3.1/region/${continent}`)
     <div>Area: <h4>${country.area}</h4></div>
      <form action="${country.maps.googleMaps}" target="_blank">Location:
    <button>Maps</button>
-  </form>
-    
+  </form>  
    </div>
    </div>`
-        console.log(country)
+                console.log(country)
 
-    })
+            })
+        })
+
 })
