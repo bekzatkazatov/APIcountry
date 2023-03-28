@@ -34,7 +34,7 @@ fetch(`https://restcountries.com/v3.1/region/${continent}`)
     <div>Population: <h4>${country.population}</h4></div>
     <div>Area: <h4>${country.area}</h4></div>
      <form action="${country.maps.googleMaps}" target="_blank">Location:
-   <button>Переход по ссылке</button>
+   <button>Maps</button>
   </form>
     
    </div>
